@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@model List<Tasks>
+<h1>Task List</h1>
+
+<table class="table">
+    <tr>
+        <td>
+            <form action="../Tasks/FindTasks" method="post">
+                <input type="text" name="word" value="" />
+                <input type="submit" name="submit" value="Search" />
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td><a href="../Tasks/SortBy?id=1" class="btn btn-light">Sort By Name</a></td>
+        <td><a href="../Tasks/SortBy?id=2" class="btn btn-light">Sort By Date</a></td>
+        <td><a href="../Tasks/SortBy?id=3" class="btn btn-light">Sort By Completion Status</a></td>
+    </tr>
+    <tr>
+        <th>Task Name</th>
+        <th>Due Date</th>
+        <th>Completed</th>
+    </tr>
+    @foreach (Tasks task in Model)
+    {
+        <tr>
+            <td>@task.TaskName</td>
+            <td>@task.DueDate.ToShortDateString()</td>
+            <td>@task.Complete</td>
+            <td><a href="../Tasks/ChangeStatus?id=@task.Id" class="btn btn-light">Change Completion State</a></td>
+            <td><a href="../Tasks/DeleteTask?id=@task.Id" class="btn btn-danger">Delete Task</a></td>
+        </tr>
+    }
+</table>
+
+<a href="../Tasks/AddTask" class="btn btn-success">Add a task</a>
